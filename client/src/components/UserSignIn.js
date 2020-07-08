@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Header from './Header';
 import Form from './Form';
 
 class UserSignIn extends Component{
@@ -17,7 +16,6 @@ class UserSignIn extends Component{
       } = this.state;
      return(
         <div>
-            <Header />
             <div className="bounds">
             <div className="grid-33 centered signin">
             <h1>Sign In</h1>

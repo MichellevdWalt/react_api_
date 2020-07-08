@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Header from './Header'
 
 //TODO create paragraphs for longer descriptions (Optional)
 //TODO Delete function (Perhaps a component and page to confirm first??)
@@ -14,7 +13,8 @@ class CourseDetail extends Component{
 
 //Get course from API
 async getCourse(){
-    axios.get("http://localhost:5000/api/courses/" + this.props.id)
+    const {match} = this.props
+    axios.get("http://localhost:5000/api/courses/" + match.params.id )
     .then(response => this.setState({
         course: response.data[0],
         loaded: true
@@ -60,12 +60,11 @@ render(){
     if(this.state.loaded){
     return(
         <div>
-        <Header />
         <div>
         <div className="actions--bar">
           <div className="bounds">
-            <div className="grid-100"><span><a className="button" href={'/course/' + this.state.course.id + '/update'}>Update Course</a><a className="button" href="#">Delete Course</a></span><a
-                className="button button-secondary" href="/">Return to List</a></div>
+            <div className="grid-100"><span><a className="button" href={'/course/' + this.state.course.id + '/update'}>Update Course</a><a className="button" href="#">Delete Course</a></span><a 
+              className="button button-secondary" href="/">Return to List</a></div>
           </div>
         </div>
         <div className="bounds course--detail">

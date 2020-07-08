@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Header from './Header';
 
 class Courses extends Component {
     state = {
@@ -20,7 +19,7 @@ class Courses extends Component {
      let coursesFormat = courses.map(course => {
             return(
                 <div key={course.id}  className="grid-33">
-                    <a className="course--module course--link" href={"/courseDetail/" + course.id}>
+                    <a className="course--module course--link" href={"/courses/" + course.id}>
                     <h4 className="course--label">Course</h4>
                     <h3 className="course--title">{course.title}</h3>
                     </a>
@@ -34,7 +33,6 @@ class Courses extends Component {
  render(){
      return(
          <div>
-         <Header />
          <div>
              <ul>
               {console.log(this.state)}

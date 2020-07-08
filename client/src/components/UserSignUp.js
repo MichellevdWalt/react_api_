@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Header from './Header';
 import Form from './Form';
 
 export default class UserSignUp extends Component{
@@ -8,6 +7,7 @@ export default class UserSignUp extends Component{
         lastName: '',
         emailAddress: '',
         password: '',
+        confirmPassword: '',
         errors: [],
     }
 
@@ -18,13 +18,12 @@ render(){
         lastName,
         emailAddress,
         password,
+        confirmPassword,
         errors,
       } = this.state;
-      {console.log(this.props)}
     return(
         
         <div>
-            <Header />
             <div className="bounds">
         <div className="grid-33 centered signin">
           <h1>Sign Up</h1>
@@ -91,7 +90,7 @@ render(){
                     name="confirmPassword" 
                     type="password" 
                     className="" 
-                    value={password}
+                    value={confirmPassword}
                     onChange={this.change}
                 >
                 </input>
@@ -126,6 +125,7 @@ submit = ()=>{
     lastName,
     emailAddress,
     password,
+    confirmPassword,
   } = this.state;
 
   // Create user
@@ -136,11 +136,21 @@ submit = ()=>{
     password
   };
 
+  
+
   context.data.createUser(user)
     .then( errors => {
-      if (errors.length) {
-        this.setState({ errors });
+      console.log(errors)
+      if (errors.length !== 0) {
+        if(password !== confirmPassword){
+          console.log(errors);
+          errors.Error += ",↵Validation error: Your passwords don't match please try again"
+          this.setState({ errors });
+        }else{
+          this.setState({ errors });
+        }
       } else {
+        console.log("Got here")
         context.actions.signIn(emailAddress, password)
           .then(() => {
             this.props.history.push('/authenticated');    

@@ -108,7 +108,7 @@ app.post('/api/users', asyncHandler(async (req,res) =>{
       await User.create(user);
       res.status(201).location('/').end()
     } else {
-      res.status(400).json({"Error": "Woops, that email already exists"})
+      res.status(400).json({"Error": "Woops that email already exists"})
     }
   } catch(error){
     if(error.name === "SequelizeValidationError") {

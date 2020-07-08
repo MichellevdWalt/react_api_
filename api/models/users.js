@@ -34,7 +34,7 @@ module.exports = (sequelize) => {
             allowNull: false,
             validate: {
                 notEmpty: {
-                  msg: "Please enter a valid email",
+                  msg: "Email address cannot be empty",
                 },
                 isEmail: {
                   msg: "Please enter a valid email address"
@@ -46,7 +46,7 @@ module.exports = (sequelize) => {
             allowNull: false,
             validate: {
                 notEmpty: {
-                  msg: "Please enter a valid email",
+                  msg: "Please enter a valid password",
                 }
               }
         }

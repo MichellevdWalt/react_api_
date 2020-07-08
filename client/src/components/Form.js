@@ -1,5 +1,7 @@
 import React from 'react';
 
+//TODO CLEAN UP CONSOLE LOG
+
 export default (props) => {
   const {
     cancel,
@@ -35,8 +37,44 @@ export default (props) => {
 
 function ErrorsDisplay({ errors }) {
   let errorsDisplay = null;
+  console.log(errors);
 
-  if (errors.length) {
+  let getErrors = errors.Error
+  console.log(getErrors)
+  
+  if (getErrors !== undefined){
+  let toArray = Array(getErrors);
+   console.log(toArray);
+
+  if (toArray[0] !== undefined) {
+
+    let errorArray = toArray[0].split(",");
+    errorArray = Array(errorArray);
+    console.log(errorArray);
+    let finalArray = [];
+    for(var i = 0; i < errorArray[0].length; i +=1){
+      if(errorArray[0][i].includes("Validation error:")){
+        finalArray.push(errorArray[0][i].substring(18));
+      }else{
+        finalArray.push(errorArray[0][i]);
+      }
+    }
+    console.log(finalArray);
+    console.log(typeof(finalArray))
+  
+
+    errorsDisplay = (
+      <div>
+        <h2 className="validation--errors--label">Validation errors</h2>
+        <div className="validation-errors">
+          <ul>
+            {finalArray.map((error, i) => <li key={i}>{error}</li>)}
+          </ul>
+        </div>
+      </div>
+    );
+  }
+  }else if(errors.length !== 0) {
     errorsDisplay = (
       <div>
         <h2 className="validation--errors--label">Validation errors</h2>
@@ -46,8 +84,7 @@ function ErrorsDisplay({ errors }) {
           </ul>
         </div>
       </div>
-    );
+    )
   }
-
   return errorsDisplay;
 }
