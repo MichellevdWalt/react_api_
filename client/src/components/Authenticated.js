@@ -5,12 +5,9 @@ class Authenticated extends Component {
     authUser: this.props.context.authenticatedUser
   }
   
-  redirect(){
-   console.log(this.props)
-  }
 
   componentDidMount(){
-    setTimeout(this.redirect, 7000)
+    setTimeout(()=>{this.props.history.push('/')}, 7000)
   }
   render(){
     const {
@@ -23,7 +20,7 @@ class Authenticated extends Component {
      
       <h1>{authUser[0].firstName} is authenticated!</h1>
       <p>Your username is {authUser[0].emailAddress}.</p>
-      <p>This page will auto-redirect</p>
+      <p>This page will auto-redirect in 7 seconds</p>
     </div>
   </div>
   );
