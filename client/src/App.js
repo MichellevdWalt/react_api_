@@ -26,6 +26,8 @@ const ErrorWithContext = withContext(Error);
 const CourseDetailWithContext = withContext(CourseDetail);
 const AuthWithContext = withContext(Authenticated);
 const SignOUtWithContext = withContext(UserSignOut);
+const CreateCourseWithContext = withContext(CreateCourse);
+const UpdateCourseWithContext = withContext(UpdateCourse);
 
 function App() {
   return (
@@ -38,8 +40,8 @@ function App() {
           <Route exact path="/" component={CoursesWithContext}/>
           <Route path="/courses/:id" component={CourseDetailWithContext}/>
           <PrivateRoute path="/authenticated" component={AuthWithContext}/>
-          <Route exact path="/course/create" render={()=> <CreateCourse />}></Route>
-          <Route path= "/course/:id/update" render={({match})=> <UpdateCourse id={match.params.id}/>}></Route>
+          <PrivateRoute exact path="/course/create" component={CreateCourseWithContext}/>
+          <PrivateRoute path= "/course/:id/update" component={UpdateCourseWithContext}/>
           <Route path= "/signin" component={UserSignInWithContext} />
           <Route path= "/signup" component={UserSignUpWithContext} />
           <Route exact path= "/signout" component={SignOUtWithContext} />

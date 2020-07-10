@@ -74,6 +74,47 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
+//authentication middleware for after sign in
+const authenticateUserAfter = async (req, res, next) => {
+  let message = null;
+  let authenticated = false;
+  const credentials = auth(req);
+  console.log(credentials);
+  if (credentials) {
+    const user = await User.findOne({
+      where:{
+          emailAddress: {
+              [Op.eq]: credentials.name
+          }
+      }
+    });
+    if (user) {
+       if(credentials.pass === user.password){
+        authenticated = true;
+       }      
+      
+    if (authenticated) {
+        console.log(`Authentication successful for username: ${user.emailAddress}`);
+        req.currentUser = user;
+      } else {
+        message = `Authentication failure for username: ${user.emailAddress}`;
+      }
+    } else {
+      message = `User not found for username: ${credentials.name}`;
+    }
+  } else {
+    message = 'Auth header not found';
+  }
+
+  if (message) {
+    console.warn(message);
+    res.status(401).json({ message: 'Access Denied' });
+  } else {
+    next();
+  }
+};
+
+
 // Get route for user
 app.get('/api/users', authenticateUser, asyncHandler(async(req,res) => {
   const currentUser = req.currentUser;
@@ -81,7 +122,7 @@ app.get('/api/users', authenticateUser, asyncHandler(async(req,res) => {
     where : {
       emailAddress: currentUser.emailAddress
     },
-    attributes: ['id', 'firstName', 'lastName', 'emailAddress']
+    attributes: ['id', 'firstName', 'lastName', 'emailAddress', 'password']
   });
   res.status(200).json(users)
 }))
@@ -147,7 +188,7 @@ app.get('/api/courses/:id', asyncHandler(async(req,res) => {
 }))
 
 // POST /api/courses 201 - Creates a course, sets the Location header to the URI for the course, and returns no content
-app.post('/api/courses', authenticateUser, asyncHandler(async(req,res)=>{
+app.post('/api/courses', authenticateUserAfter, asyncHandler(async(req,res)=>{
   let course;
   try{
     course = await Course.create(req.body);
@@ -179,7 +220,7 @@ app.delete('/api/users/:id', authenticateUser, asyncHandler(async(req,res) =>{
 }))
 
 // PUT /api/courses/:id 204 - Updates a course and returns no content
-app.put('/api/courses/:id', authenticateUser, [
+app.put('/api/courses/:id', authenticateUserAfter, [
    body("title").notEmpty().withMessage("Please enter a title"),
    body("description").notEmpty().withMessage("Please enter a description")
   ], asyncHandler(async(req,res) =>{

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-//TODO insert an if to return different header when logged in.
 //? Might need to make stateful to get username?? Or perhaps to be done with prop
 
 class Header extends Component{

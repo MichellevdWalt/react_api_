@@ -90,6 +90,7 @@ render(){
                     name="confirmPassword" 
                     type="password" 
                     className="" 
+                    placeholder = "Confirm Password"
                     value={confirmPassword}
                     onChange={this.change}
                 >
@@ -140,7 +141,6 @@ submit = ()=>{
 
   context.data.createUser(user)
     .then( errors => {
-      console.log(errors)
       if (errors.length !== 0) {
         if(password !== confirmPassword){
           console.log(errors);
@@ -150,7 +150,6 @@ submit = ()=>{
           this.setState({ errors });
         }
       } else {
-        console.log("Got here")
         context.actions.signIn(emailAddress, password)
           .then(() => {
             this.props.history.push('/authenticated');    
@@ -162,5 +161,8 @@ submit = ()=>{
       this.props.history.push('/error');
     });
 
+}
+cancel = () => {
+  this.props.history.push('/');
 }
 }
