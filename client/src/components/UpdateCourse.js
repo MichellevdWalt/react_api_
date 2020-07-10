@@ -184,6 +184,7 @@ class UpdateCourse extends Component{
       context.data.updateCourse(courseId, course, emailAddress, password)
         .then( errors => {
           if (errors.length !== 0) {
+            console.log(errors);
               this.setState({ errors });
           } else {
             this.props.history.push('/courses/' + courseId);

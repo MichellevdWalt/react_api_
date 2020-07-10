@@ -70,7 +70,7 @@ authCheck(){
                href={'/course/' + this.state.course.id + '/update'}>
                 Update Course
               </a>
-              <a className="button" href="#">
+              <a className="button" href={'/course/' + this.state.course.id + '/delete'}>
                 Delete Course
               </a>
           </span>

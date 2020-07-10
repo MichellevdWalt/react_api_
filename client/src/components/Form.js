@@ -37,6 +37,7 @@ export default (props) => {
 
 function ErrorsDisplay({ errors }) {
   let errorsDisplay = null;
+  let errorArray = [];
   console.log(errors);
 
   let getErrors = errors.Error
@@ -47,9 +48,12 @@ function ErrorsDisplay({ errors }) {
    console.log(toArray);
 
   if (toArray[0] !== undefined) {
-
-    let errorArray = toArray[0].split(",");
+    if(toArray.includes(",")){
+    errorArray = toArray[0].split(",");
     errorArray = Array(errorArray);
+    }else{
+    errorArray = Array(toArray[0])
+    }
     console.log(errorArray);
     let finalArray = [];
     for(var i = 0; i < errorArray[0].length; i +=1){

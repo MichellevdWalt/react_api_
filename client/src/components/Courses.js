@@ -30,15 +30,32 @@ class Courses extends Component {
      return coursesFormat
  }
  
+ checkAuth(){
+     const authUser = this.props.context.authenticatedUser
+     if(authUser){
+         return(
+            <span>
+               <a className="button create-course" 
+                  href={'/course/create'}>
+                   Create a Course
+                </a>
+                <p> </p>
+            </span>
+             
+         )
+     }
+ }
+
  render(){
      return(
-         <div>
-         <div>
+          <div>
+            {this.checkAuth()}
+          <div>
              <ul>
-              {console.log(this.state)}
               {this.formatCourses()}
              </ul>
          </div>
+
          </div>
      )
  }

@@ -19,6 +19,7 @@ import PrivateRoute from './PrivateRoute';
 import Authenticated from './components/Authenticated';
 import Forbidden from './components/Forbidden';
 import NotFound from './components/NotFound';
+import Delete from './components/Delete';
 
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
@@ -32,6 +33,7 @@ const CreateCourseWithContext = withContext(CreateCourse);
 const UpdateCourseWithContext = withContext(UpdateCourse);
 const ForbiddenWithContext = withContext(Forbidden);
 const NotFoundWithContext = withContext(NotFound);
+const DeleteWithContext = withContext(Delete);
 
 function App() {
   return (
@@ -46,6 +48,7 @@ function App() {
           <PrivateRoute path="/authenticated" component={AuthWithContext}/>
           <PrivateRoute exact path="/course/create" component={CreateCourseWithContext}/>
           <PrivateRoute path= "/course/:id/update" component={UpdateCourseWithContext}/>
+          <PrivateRoute path= "/course/:id/delete" component={DeleteWithContext} />
           <Route path= "/signin" component={UserSignInWithContext} />
           <Route path= "/signup" component={UserSignUpWithContext} />
           <Route exact path = "/forbidden" component={ForbiddenWithContext} />

@@ -79,6 +79,7 @@ export default class Data {
     }
   }
 
+  //Get and return course from the db
   async getCourse(courseId) {
     const response = await this.api('/courses/' + courseId, 'GET', null);
     if (response.status === 200) {
@@ -90,6 +91,20 @@ export default class Data {
       return null;
     }
     else {
+      throw new Error();
+    }
+  }
+
+  //Delete a course from the db
+  async deleteCourse(courseId, emailAddress, password) {
+    const response = await this.api(`/courses/`+ courseId, 'DELETE', null, true, {emailAddress, password});
+    if(response.status === 204){
+      return []
+    }else if (response.status === 400) {
+      return response.json().then(data => {
+        return data;
+      });
+    }else {
       throw new Error();
     }
   }

@@ -205,7 +205,7 @@ app.post('/api/courses', authenticateUserAfter, asyncHandler(async(req,res)=>{
 }))
 
 // DELETE  - Deletes a user, if the user is the authenticated current user and authorized, and returns no content
-app.delete('/api/users/:id', authenticateUser, asyncHandler(async(req,res) =>{
+app.delete('/api/users/:id', authenticateUserAfter, asyncHandler(async(req,res) =>{
   let user = await User.findByPk(req.params.id);
   if(user){
     if(user.emailAddress === req.currentUser.emailAddress){
@@ -252,7 +252,7 @@ app.put('/api/courses/:id', authenticateUserAfter, [
 }))
 
 // DELETE /api/courses/:id 204 - Deletes a course and returns no content
-app.delete('/api/courses/:id', authenticateUser, asyncHandler(async(req,res) =>{ 
+app.delete('/api/courses/:id', authenticateUserAfter, asyncHandler(async(req,res) =>{ 
    let course = await Course.findByPk(req.params.id);
    console.log(course);
    if(course){
