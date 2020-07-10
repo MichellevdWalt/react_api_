@@ -17,6 +17,8 @@ import withContext from './Context';
 import Header from './components/Header';
 import PrivateRoute from './PrivateRoute';
 import Authenticated from './components/Authenticated';
+import Forbidden from './components/Forbidden';
+import NotFound from './components/NotFound';
 
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
@@ -28,6 +30,8 @@ const AuthWithContext = withContext(Authenticated);
 const SignOUtWithContext = withContext(UserSignOut);
 const CreateCourseWithContext = withContext(CreateCourse);
 const UpdateCourseWithContext = withContext(UpdateCourse);
+const ForbiddenWithContext = withContext(Forbidden);
+const NotFoundWithContext = withContext(NotFound);
 
 function App() {
   return (
@@ -44,8 +48,10 @@ function App() {
           <PrivateRoute path= "/course/:id/update" component={UpdateCourseWithContext}/>
           <Route path= "/signin" component={UserSignInWithContext} />
           <Route path= "/signup" component={UserSignUpWithContext} />
+          <Route exact path = "/forbidden" component={ForbiddenWithContext} />
+          <Route exact path = "/error" component={ErrorWithContext} />
           <Route exact path= "/signout" component={SignOUtWithContext} />
-          <Route component={ErrorWithContext}/>
+          <Route component={NotFoundWithContext}/>
         </Switch>
         </div>
       </Router>  

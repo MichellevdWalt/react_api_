@@ -89,7 +89,8 @@ class UpdateCourse extends Component{
                             className="" 
                             placeholder="Course description..."
                             value= {description}
-                            onchange = {this.change}>
+                            onChange = {this.change}
+                            >
                           </textarea>
                         </div>
                       </div>
@@ -159,8 +160,45 @@ class UpdateCourse extends Component{
       });
     }
 
+    submit = ()=>{
+      const { context } = this.props;
+      const {
+        userId,
+        title,
+        description,
+        materialsNeeded,
+        estimatedTime
+      } = this.state;
+      const courseId = this.props.match.params.id;
+    
+      // Create user
+      const course = {
+        userId,
+        title,
+        description,
+        materialsNeeded,
+        estimatedTime
+      };
+      const {emailAddress, password} = context.authenticatedUser[0]
+    
+      context.data.updateCourse(courseId, course, emailAddress, password)
+        .then( errors => {
+          if (errors.length !== 0) {
+              this.setState({ errors });
+          } else {
+            this.props.history.push('/courses/' + courseId);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.props.history.push('/error');
+        });
+    
+    }
+
     cancel = () => {
-      this.props.history.push('/');
+      const courseId = this.props.match.params.id;
+      this.props.history.push('/courses/' + courseId);
     }
 }
 

@@ -137,8 +137,6 @@ submit = ()=>{
     password
   };
 
-  
-
   context.data.createUser(user)
     .then( errors => {
       if (errors.length !== 0) {

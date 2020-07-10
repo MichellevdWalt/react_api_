@@ -26,6 +26,7 @@ componentDidMount(){
  this.getCourse()
 }
 
+//TODO add if to edit materials that do not have a *
 //Format data from api into an array and then create list items for all in the array to be published
 formatMaterials(){
     let formattedmaterials
@@ -55,6 +56,30 @@ createName(){
     return fullName
 }
 
+authCheck(){
+  const {loaded} = this.state;
+  const {context} = this.props
+  const authUserId = context.authenticatedUser;
+  
+  if(loaded){
+    if(authUserId){
+      if(this.state.course.userId === context.authenticatedUser[0].id){
+        return(
+          <span>
+            <a className="button" 
+               href={'/course/' + this.state.course.id + '/update'}>
+                Update Course
+              </a>
+              <a className="button" href="#">
+                Delete Course
+              </a>
+          </span>
+        )
+}
+}
+}
+}
+
 
 render(){
     if(this.state.loaded){
@@ -63,8 +88,11 @@ render(){
         <div>
         <div className="actions--bar">
           <div className="bounds">
-            <div className="grid-100"><span><a className="button" href={'/course/' + this.state.course.id + '/update'}>Update Course</a><a className="button" href="#">Delete Course</a></span><a 
-              className="button button-secondary" href="/">Return to List</a></div>
+            <div className="grid-100">
+           
+             {this.authCheck()}
+              
+              <a className="button button-secondary" href="/">Return to List</a></div>
           </div>
         </div>
         <div className="bounds course--detail">
