@@ -108,6 +108,8 @@ render(){
         </div>
     )
 }
+
+//Function to handle change of text field values
 change = (event) => {
   const name = event.target.name;
   const value = event.target.value;
@@ -119,6 +121,7 @@ change = (event) => {
   });
 }
 
+//Function to handle form submit
 submit = ()=>{
   const { context } = this.props;
   const {
@@ -129,7 +132,7 @@ submit = ()=>{
     confirmPassword,
   } = this.state;
 
-  // Create user
+
   const user = {
     firstName,
     lastName,
@@ -160,6 +163,8 @@ submit = ()=>{
     });
   }
 }
+
+//Function to handle form cancel
 cancel = () => {
   this.props.history.push('/');
 }

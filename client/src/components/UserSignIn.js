@@ -62,6 +62,8 @@ class UserSignIn extends Component{
       </div>
      )
  }
+
+ //Function to handle change of text field values
  change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -73,6 +75,7 @@ class UserSignIn extends Component{
     });
   }
 
+  //Function to handle form submit
   submit = () => {
     const { context } = this.props;
     const { emailAddress, password } = this.state;
@@ -93,6 +96,7 @@ class UserSignIn extends Component{
       });
   }
 
+  //Function to handle cancel
   cancel = () => {
     this.props.history.push('/');
   }

@@ -1,7 +1,5 @@
 import React from 'react';
 
-//TODO CLEAN UP CONSOLE LOG
-
 export default (props) => {
   const {
     cancel,
@@ -35,28 +33,24 @@ export default (props) => {
   );
 }
 
+
+//Function to format errors and return them in the correct format
 function ErrorsDisplay({ errors }) {
   let errorsDisplay = null;
   let errorArray = [];
-  console.log(errors);
 
   let getErrors = errors.Error
-  console.log(getErrors)
   
   if (getErrors !== undefined){
   let toArray = Array(getErrors);
-   console.log(toArray);
 
   if (toArray[0] !== undefined) {
     if(toArray[0].includes(",")){
     errorArray = toArray[0].split(",");
     errorArray = Array(errorArray);
-    console.log(`in if ${errorArray}`)
     }else{
     errorArray = Array(toArray[0])
-    console.log(`in else ${errorArray}`)
     }
-    console.log(errorArray);
     let finalArray = [];
     for(var i = 0; i < errorArray[0].length; i +=1){
       if(errorArray[0][i].includes("Validation error:")){
@@ -64,10 +58,7 @@ function ErrorsDisplay({ errors }) {
       }else{
         finalArray.push(errorArray[0][i]);
       }
-    }
-    console.log(finalArray);
-    console.log(typeof(finalArray))
-  
+    }  
 
     errorsDisplay = (
       <div>

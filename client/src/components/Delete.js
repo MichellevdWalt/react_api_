@@ -64,6 +64,8 @@ render(){
     }
 
 }
+
+//Function to handle form submit
 submit = ()=>{
     const { context } = this.props;
     const courseId = this.props.match.params.id;
@@ -84,6 +86,7 @@ submit = ()=>{
   
   }
 
+//Function to handle form cancel
   cancel = () => {
     const courseId = this.props.match.params.id;
     this.props.history.push('/courses/' + courseId);

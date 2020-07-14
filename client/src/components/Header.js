@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-//? Might need to make stateful to get username?? Or perhaps to be done with prop
-
 class Header extends Component{
  
 render(){

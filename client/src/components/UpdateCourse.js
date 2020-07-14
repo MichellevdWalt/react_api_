@@ -158,7 +158,7 @@ class UpdateCourse extends Component{
         
         }
         
-      
+    //Function to handle change of text field values
     change = (event) => {
       const name = event.target.name;
       const value = event.target.value;
@@ -170,6 +170,7 @@ class UpdateCourse extends Component{
       });
     }
 
+    //Function to handle form submit
     submit = ()=>{
       const { context } = this.props;
       const {
@@ -181,7 +182,7 @@ class UpdateCourse extends Component{
       } = this.state;
       const courseId = this.props.match.params.id;
     
-      // Create user
+    
       const course = {
         userId,
         title,
@@ -206,7 +207,8 @@ class UpdateCourse extends Component{
         });
     
     }
-
+  
+    //Function to handle form cancel
     cancel = () => {
       const courseId = this.props.match.params.id;
       this.props.history.push('/courses/' + courseId);

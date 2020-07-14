@@ -1,8 +1,5 @@
 import React from 'react';
 
-
-//TODO put in an if error or create a separate error page? See markup
-
 function UnhandledError(){
     return(
         <div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Form from './Form';
 
-//TODO add functionality to course details to edit when just a space between list items
+
 class CreateCourse extends Component{
   state = {
       title: "",
@@ -104,6 +104,8 @@ class CreateCourse extends Component{
       </div>
       )
   }
+
+  //Function to handle change of text field values
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -115,6 +117,7 @@ class CreateCourse extends Component{
     });
   }
 
+//Function to handle form submit
   submit = ()=>{
     const { context } = this.props;
     const {
@@ -140,7 +143,6 @@ class CreateCourse extends Component{
         if (errors.length !== 0) {
             this.setState({ errors });
         } else {
-          //TODO push to details of course created
             this.props.history.push('/');    
             }
       })
@@ -151,6 +153,7 @@ class CreateCourse extends Component{
   
   }
 
+  //Function to handle form cancel button
   cancel = () => {
     this.props.history.push('/');
   }
