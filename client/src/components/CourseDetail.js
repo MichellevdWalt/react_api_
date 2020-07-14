@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 //TODO create paragraphs for longer descriptions (Optional)
-//TODO Delete function (Perhaps a component and page to confirm first??)
 
 
 class CourseDetail extends Component{
@@ -26,27 +25,40 @@ componentDidMount(){
  this.getCourse()
 }
 
-//TODO add if to edit materials that do not have a *
 //Format data from api into an array and then create list items for all in the array to be published
 formatMaterials(){
-    let formattedmaterials
+    let formattedMaterials;
+    let materialsSplit = [];
     if(this.state.course.materialsNeeded !== null){
    let n = 0;
    let materials = this.state.course.materialsNeeded;
-   let materialsSplit = materials.split("*");
+   console.log(materials);
+   if(materials.includes("*")){
+      materialsSplit = materials.split("*");
+   }else if(materials.includes("\n")){
+    materialsSplit = materials.split("\n");
+   }else if(materials.includes(" ")){
+      materialsSplit = materials.split(" "); 
+   }else if(materials !== ""){
+     materialsSplit = [materials]
+   }
+   console.log(materialsSplit);
    let materialsArray = [materialsSplit];
-   formattedmaterials = materialsArray[0].map(material => {
-       if(material !== ""){
-        n+=1
+   console.log(materialsArray)
+   formattedMaterials = materialsSplit.map(material => {
+       if(material !== "" && materials !== "" && materials !== "\n" ){
+        n+=1;
        return(
-           <li key ={n}>{material}</li>
-       )
-       } else{
-        formattedmaterials = <li>No materials Needed</li>
-        return(formattedmaterials)
-        }})
-   return formattedmaterials;
-}}
+           <li key={n}>{material}</li>
+       )}
+       return(formattedMaterials)
+      })
+      return(formattedMaterials)
+    }else{
+        formattedMaterials = <li key={110}>No materials Needed</li>
+        return(formattedMaterials)
+    }
+}
 
 //Function to create full name of course owner to publish
 createName(){
@@ -56,6 +68,7 @@ createName(){
     return fullName
 }
 
+//Function to check if currentUser is authorized, to display or hide update and delete buttons
 authCheck(){
   const {loaded} = this.state;
   const {context} = this.props
@@ -75,11 +88,36 @@ authCheck(){
               </a>
           </span>
         )
-}
-}
-}
-}
+}}}}
 
+//Function to check if estimatedTime exist, if it does, format it ready for publishing
+checkTime(){
+  const time = this.state.course.estimatedTime;
+  if(time){
+    if(time.includes("hours") || time.includes("hour")){
+    return(
+      <li className="course--stats--list--item">
+      <h4>Estimated Time</h4>
+      <h3>{time}</h3>
+      </li>
+    )
+  }else if(time !== "1"){
+    return(
+      <li className="course--stats--list--item">
+      <h4>Estimated Time</h4>
+      <h3>{time + " hours"}</h3>
+      </li>
+    )
+  }else{
+    return(
+      <li className="course--stats--list--item">
+      <h4>Estimated Time</h4>
+      <h3>{time + " hour"}</h3>
+      </li>
+    )
+  }
+}
+}
 
 render(){
     if(this.state.loaded){
@@ -109,10 +147,10 @@ render(){
           <div className="grid-25 grid-right">
             <div className="course--stats">
               <ul className="course--stats--list">
-                <li className="course--stats--list--item">
-                  <h4>Estimated Time</h4>
-                  <h3>{this.state.course.estimatedTime}</h3>
-                </li>
+                
+                 {this.checkTime()}
+                 
+                
                 <li className="course--stats--list--item">
                   <h4>Materials Needed</h4>
                   <ul>

@@ -18,9 +18,9 @@ class UpdateCourse extends Component{
     async getCourse(){
       const {context, match } = this.props;
       const courseId = match.params.id;
-      context.data.getCourse(courseId)
+      const course = context.data.getCourse(courseId)
         .then(response => {
-          console.log(response)
+          if(course){
           this.setState({
             userId: response[0].User.id,
             firstName: response[0].User.firstName,
@@ -31,8 +31,14 @@ class UpdateCourse extends Component{
             estimatedTime: response[0].estimatedTime,
             materialsNeeded: response[0].materialsNeeded,
             loaded: true
-          })
-        })      
+            })} else {
+              this.props.history.push("/notfound")
+            }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.props.history.push('/error');
+        });      
     }
 
     render(){
@@ -48,7 +54,7 @@ class UpdateCourse extends Component{
         userId
       } = this.state;
 
-      const {context} = this.props
+      const {context, history} = this.props
       
       
         if(loaded){       
@@ -136,7 +142,11 @@ class UpdateCourse extends Component{
               </div>
             )
           }else{
-            this.props.history.push('/forbidden');
+            return(
+              <div>
+            {history.push('/forbidden')}
+            </div>
+            )
           }
           }else{
             return(

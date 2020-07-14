@@ -48,11 +48,13 @@ function ErrorsDisplay({ errors }) {
    console.log(toArray);
 
   if (toArray[0] !== undefined) {
-    if(toArray.includes(",")){
+    if(toArray[0].includes(",")){
     errorArray = toArray[0].split(",");
     errorArray = Array(errorArray);
+    console.log(`in if ${errorArray}`)
     }else{
     errorArray = Array(toArray[0])
+    console.log(`in else ${errorArray}`)
     }
     console.log(errorArray);
     let finalArray = [];

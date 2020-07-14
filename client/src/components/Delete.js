@@ -26,7 +26,9 @@ componentDidMount(){
 }
 
 render(){
+    const {context} = this.props;
     if(this.state.loaded){
+        if(this.state.course.userId === context.authenticatedUser[0].id){
     return(
         <div>
          <Form
@@ -50,6 +52,9 @@ render(){
        
         </div>
     )
+        }else{
+            this.props.history.push("/forbidden");
+        }
     } else {
         return(
             <div>
@@ -57,6 +62,7 @@ render(){
             </div>
         )
     }
+
 }
 submit = ()=>{
     const { context } = this.props;

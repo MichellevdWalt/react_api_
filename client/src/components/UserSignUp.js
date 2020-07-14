@@ -137,28 +137,28 @@ submit = ()=>{
     password
   };
 
-  context.data.createUser(user)
+  if(password!== confirmPassword){
+    this.setState({
+      errors: ["Your passwords don't match please try again"]
+    })
+  } else{
+    context.data.createUser(user)
     .then( errors => {
-      if (errors.length !== 0) {
-        if(password !== confirmPassword){
-          console.log(errors);
-          errors.Error += ",↵Validation error: Your passwords don't match please try again"
+         if(errors.length !==0){
           this.setState({ errors });
-        }else{
-          this.setState({ errors });
-        }
       } else {
         context.actions.signIn(emailAddress, password)
           .then(() => {
             this.props.history.push('/authenticated');    
           });
+  
       }
     })
     .catch((err) => {
       console.log(err);
       this.props.history.push('/error');
     });
-
+  }
 }
 cancel = () => {
   this.props.history.push('/');

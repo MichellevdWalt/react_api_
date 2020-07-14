@@ -21,6 +21,7 @@ class Authenticated extends Component {
       <h1>{authUser[0].firstName} is authenticated!</h1>
       <p>Your username is {authUser[0].emailAddress}.</p>
       <p>This page will auto-redirect in 7 seconds</p>
+      <p>If it doesn't, just click <a href='/'>here</a></p>
     </div>
   </div>
   );
