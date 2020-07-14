@@ -21,7 +21,8 @@ export default class Data {
     }
     return fetch(url, options);
   }
-//gets user from db using email and password
+
+//Function gets user from db using email and password
   async getUser(emailAddress, password) {
     const response = await this.api(`/users`, 'GET', null, true, { emailAddress, password });
     if (response.status === 200) {
@@ -35,7 +36,7 @@ export default class Data {
     }
   }
  
-  //Creates a new user in the db or returns validation errors
+//Function creates a new user in the db or returns validation errors
   async createUser(user) {
     const response = await this.api('/users', 'POST', user);
       if (response.status === 201) {
@@ -51,7 +52,7 @@ export default class Data {
       }
   }
 
-  //Create a course in the db or return validation errors
+//Function creates a course in the db or return validation errors
   async createCourse(course, emailAddress, password) {
     const response = await this.api('/courses', 'POST', course, true, {emailAddress, password});
       if(response.status === 201){
@@ -65,7 +66,7 @@ export default class Data {
       }
   }
 
-  //updates course from db using courseId
+//Function updates course from db using courseId
   async updateCourse(courseId, course, emailAddress, password) {
     const response = await this.api(`/courses/`+ courseId, 'PUT', course, true, {emailAddress, password});
     if(response.status === 204){
@@ -79,7 +80,7 @@ export default class Data {
     }
   }
 
-  //Get and return course from the db
+//Function gets and returns course from the db
   async getCourse(courseId) {
     const response = await this.api('/courses/' + courseId, 'GET', null);
     if (response.status === 200) {
@@ -95,7 +96,7 @@ export default class Data {
     }
   }
 
-  //Delete a course from the db
+//Function Deletes a course from the db
   async deleteCourse(courseId, emailAddress, password) {
     const response = await this.api(`/courses/`+ courseId, 'DELETE', null, true, {emailAddress, password});
     if(response.status === 204){
