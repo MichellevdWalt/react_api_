@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 
-//TODO create paragraphs for longer descriptions (Optional)
-
 
 class CourseDetail extends Component{
     state = {
@@ -14,7 +12,7 @@ class CourseDetail extends Component{
 //Get course from API
 async getCourse(){
     const {match} = this.props
-    axios.get("http://localhost:5000/api/courses/" + match.params.id )
+    const course = axios.get("http://localhost:5000/api/courses/" + match.params.id )
     .then(response => this.setState({
         course: response.data[0],
         loaded: true
@@ -112,7 +110,9 @@ checkTime(){
 }
 
 render(){
-    if(this.state.loaded){
+    const {loaded, course} = this.state
+    if(loaded){
+      if(course){
     return(
         <div>
         <div>
@@ -157,6 +157,13 @@ render(){
       </div>
       </div>
     )
+      }else{
+        return(
+          <div>
+            {this.props.history.push("/notfound")}
+          </div>
+        )
+      }
     } else {
         return(
             <div>
