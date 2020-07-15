@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
 
 //TODO create paragraphs for longer descriptions (Optional)
 
@@ -25,39 +26,30 @@ componentDidMount(){
  this.getCourse()
 }
 
-//Format data from api into an array and then create list items for all in the array to be published
+//Format data from api to a suitable format for ReactMarkdown
 formatMaterials(){
-    let formattedMaterials;
     let materialsSplit = [];
     if(this.state.course.materialsNeeded !== null){
-   let n = 0;
    let materials = this.state.course.materialsNeeded;
    console.log(materials);
    if(materials.includes("*")){
-      materialsSplit = materials.split("*");
+      materialsSplit = materials;
    }else if(materials.includes("\n")){
     materialsSplit = materials.split("\n");
+    materialsSplit = materialsSplit.join(" \n* ");
+    materialsSplit = " * " + materialsSplit;
    }else if(materials.includes(" ")){
       materialsSplit = materials.split(" "); 
+      materialsSplit = materialsSplit.join(" \n* ");
+      materialsSplit = " * " + materialsSplit;
    }else if(materials !== ""){
-     materialsSplit = [materials]
+     materialsSplit = "*" + materials;
    }
-   console.log(materialsSplit);
-   let materialsArray = [materialsSplit];
-   console.log(materialsArray)
-   formattedMaterials = materialsSplit.map(material => {
-       if(material !== "" && materials !== "" && materials !== "\n" ){
-        n+=1;
-       return(
-           <li key={n}>{material}</li>
-       )}
-       return(formattedMaterials)
-      })
-      return(formattedMaterials)
-    }else{
-        formattedMaterials = <li key={110}>No materials Needed</li>
-        return(formattedMaterials)
-    }
+   return(materialsSplit)
+  }else{
+    materialsSplit = "* No Materials Needed";
+    return(materialsSplit);
+  }
 }
 
 //Function to create full name of course owner to publish
@@ -141,20 +133,21 @@ render(){
               <p>By {this.createName()}</p>
             </div>
             <div className="course--description">
-              <p>{this.state.course.description}</p>
+              <ReactMarkdown>
+              {this.state.course.description}
+              </ReactMarkdown>
             </div>
           </div>
           <div className="grid-25 grid-right">
             <div className="course--stats">
               <ul className="course--stats--list">
-                
-                 {this.checkTime()}
-                 
-                
+                  {this.checkTime()}
                 <li className="course--stats--list--item">
                   <h4>Materials Needed</h4>
                   <ul>
+                    <ReactMarkdown>
                     {this.formatMaterials()}
+                    </ReactMarkdown>
                   </ul>
                 </li>
               </ul>

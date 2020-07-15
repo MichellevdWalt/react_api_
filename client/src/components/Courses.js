@@ -3,13 +3,17 @@ import axios from 'axios';
 
 class Courses extends Component {
     state = {
-        courses: []
+        courses: [],
+        loaded: false
     }
 
 //Function to get courses from API
  getCourses = () => {
    axios.get('http://localhost:5000/api/courses')
-   .then(response => this.setState( {courses: response.data}))
+   .then(response => this.setState( {
+       courses: response.data,
+       loaded: true
+    }))
  }
  
  componentDidMount(){
@@ -61,6 +65,8 @@ class Courses extends Component {
 }
 
  render(){
+     const {loaded} = this.state;
+     if(loaded){
      return(
           <div>
             <div>
@@ -71,6 +77,13 @@ class Courses extends Component {
          {this.checkAuth()}
          </div>
      )
+     }else{
+         return(
+         <div>
+             <h3>Loading...</h3>
+         </div>
+         )
+     }
  }
 
 }
