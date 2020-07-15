@@ -12,7 +12,7 @@ class CourseDetail extends Component{
 //Get course from API
 async getCourse(){
     const {match} = this.props
-    const course = axios.get("http://localhost:5000/api/courses/" + match.params.id )
+    axios.get("http://localhost:5000/api/courses/" + match.params.id )
     .then(response => this.setState({
         course: response.data[0],
         loaded: true
