@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-class Header extends Component{
- 
-render(){
-  const {context} = this.props;
-  const authUser = context.authenticatedUser;
+function Header(props){
+   
+  const authUser = props.context.authenticatedUser;
     return(
         <div className="header">
         <div className="bounds">
@@ -13,7 +11,7 @@ render(){
           <nav>
             {authUser ? (
               <React.Fragment>
-                <span>Welcome, {authUser[0].firstName}!</span>
+                <span>Welcome, {authUser[0].firstName} {authUser[0].lastName}!</span>
                 <Link to="/signout">Sign Out</Link>
               </React.Fragment>
             ) : (
@@ -26,7 +24,6 @@ render(){
         </div>
       </div>
     )
-}
 }
 
 export default Header

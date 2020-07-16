@@ -28,6 +28,7 @@ componentDidMount(){
 render(){
     const {context} = this.props;
     if(this.state.loaded){
+        if(this.state.course !== undefined) {
         if(this.state.course.userId === context.authenticatedUser[0].id){
     return(
         <div>
@@ -62,7 +63,13 @@ render(){
             </div>
         )
     }
-
+    }else{
+        return(
+            <div>
+                {this.props.history.push('/notfound')}
+            </div>
+        )
+    }
 }
 
 //Function to handle form submit

@@ -56,6 +56,7 @@ function App() {
           <Route exact path = "/forbidden" component={ForbiddenWithContext} />
           <Route exact path = "/error" component={ErrorWithContext} />
           <Route exact path= "/signout" component={SignOUtWithContext} />
+          <Route exact path= "/notfound" component={NotFoundWithContext}/>
           <Route component={NotFoundWithContext}/>
         </Switch>
         </div>

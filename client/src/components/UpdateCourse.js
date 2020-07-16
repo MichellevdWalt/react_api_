@@ -18,9 +18,9 @@ class UpdateCourse extends Component{
     async getCourse(){
       const {context, match } = this.props;
       const courseId = match.params.id;
-      const course = context.data.getCourse(courseId)
+      context.data.getCourse(courseId)
         .then(response => {
-          if(course){
+          if(response.length !== 0){
           this.setState({
             userId: response[0].User.id,
             firstName: response[0].User.firstName,
