@@ -59,16 +59,17 @@ render(){
     } else {
         return(
             <div>
-                <p>Loading...</p>
+                {this.props.history.push('/notfound')}
             </div>
         )
     }
     }else{
         return(
             <div>
-                {this.props.history.push('/notfound')}
+                <p>Loading...</p>
             </div>
         )
+        
     }
 }
 

@@ -61,7 +61,7 @@ createName(){
 //Function to check if currentUser is authorized, to display or hide update and delete buttons
 authCheck(){
   const {loaded} = this.state;
-  const {context} = this.props
+  const {context, match} = this.props
   const authUserId = context.authenticatedUser;
   
   if(loaded){
@@ -73,7 +73,7 @@ authCheck(){
                href={'/course/' + this.state.course.id + '/update'}>
                 Update Course
               </a>
-              <a className="button" href={'/course/' + this.state.course.id + '/delete'}>
+              <a className="button" href={'/course/' + match.params.id + '/delete'}>
                 Delete Course
               </a>
           </span>
